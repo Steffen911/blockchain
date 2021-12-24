@@ -1,23 +1,9 @@
 import crypto from 'crypto';
 import { State } from '../../state';
 import { Transaction, validateTransaction } from '../../transaction';
+import { generateKey, publicKeyToString } from '../../util/util';
 
 describe('validateTransaction', () => {
-  function generateKey(namedCurve = 'P-521') {
-    const {
-      publicKey,
-      privateKey,
-    } = crypto.generateKeyPairSync(
-      'ec',
-      { namedCurve },
-      );
-    return { publicKey, privateKey };
-  }
-
-  function publicKeyToString(key: crypto.KeyObject): string {
-    return key.export({ type: 'spki', format: 'pem' }).toString();
-  }
-
   let keyPairList: { publicKey: crypto.KeyObject, privateKey: crypto.KeyObject }[];
   const state: State = {};
 

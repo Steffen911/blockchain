@@ -32,6 +32,9 @@ export function validateTransaction(state: State, transaction: Transaction): boo
 
   // verify the signature
   for (const [publicKey, amount] of Object.entries(transaction.spend)) {
+    if (!transaction.sign[publicKey]) {
+      return false;
+    }
     if (!crypto.verify(
       'SHA256',
       Buffer.from(`${amount}`),
